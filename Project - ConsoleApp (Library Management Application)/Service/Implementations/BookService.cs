@@ -7,11 +7,11 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
 {
     public class BookService : IBookService
     {
-        private readonly IBookRepository _repository;
+        private readonly IBookRepository _bookRepository;
 
         public BookService(IBookRepository repository)
         {
-            _repository = repository;
+            _bookRepository = repository;
         }
 
         public void Create(BookCreateDTO bookCreateDTO)
@@ -23,40 +23,40 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
             book.Description = bookCreateDTO.Description;
             book.PublishedYear = bookCreateDTO.PublishedYear;
 
-            _repository.Add(book);
-            _repository.Commit();
+            _bookRepository.Add(book);
+            _bookRepository.Commit();
 
         }
 
         public void Delete(int? id)
         {
             if (id is null || id < 1) throw new ArgumentOutOfRangeException("Id is invalid");
-            var author = _repository.GetById((int)id);
-            if (author is null) throw new EntityNotFoundException("Author not found");
-            _repository.Remove(author);
-            _repository.Commit();
+            var author = _bookRepository.GetById((int)id);
+            if (author is null) throw new EntityNotFoundException("Book not found");
+            _bookRepository.Remove(author);
+            _bookRepository.Commit();
         }
 
         public List<BookGetDTO> GetAll()
         {
-            List<BookGetDTO> mappedAuthors = new List<BookGetDTO>();
-            List<Book> books = _repository.GetAll();
+            List<BookGetDTO> mappedBooks = new List<BookGetDTO>();
+            List<Book> books = _bookRepository.GetAll();
             foreach (var book in books)
             {
                 BookGetDTO bookGetDTO = new BookGetDTO();
                 bookGetDTO.Title = book.Title;
                 bookGetDTO.Id = book.Id;
                 bookGetDTO.PublishedYear = book.PublishedYear;
-                mappedAuthors.Add(bookGetDTO);
+                mappedBooks.Add(bookGetDTO);
             }
 
-            return mappedAuthors;
+            return mappedBooks;
         }
 
         public BookGetDTO GetById(int? id)
         {
             if (id is null || id < 1) throw new ArgumentOutOfRangeException("Id is invalid");
-            var book = _repository.GetById((int)id);
+            var book = _bookRepository.GetById((int)id);
             if (book is null) throw new EntityNotFoundException("Book not found");
             BookGetDTO bookGetDTO = new BookGetDTO()
             {
@@ -73,13 +73,13 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         public void Update(int? id, BookUpdateDTO bookUpdateDTO)
         {
             if (id is null || id < 1) throw new ArgumentOutOfRangeException("Id is invalid");
-            var book = _repository.GetById((int)id);
+            var book = _bookRepository.GetById((int)id);
             if (book is null) throw new EntityNotFoundException("Book not found");
             book.Description = bookUpdateDTO.Description;
             book.PublishedYear = bookUpdateDTO.PublishedYear;
             book.Title = bookUpdateDTO.Title;
 
-            _repository.Commit();
+            _bookRepository.Commit();
         }
     }
 }

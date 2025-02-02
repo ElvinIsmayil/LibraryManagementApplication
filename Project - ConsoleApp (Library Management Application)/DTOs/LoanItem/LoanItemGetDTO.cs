@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Project___ConsoleApp__Library_Management_Application_.DTOs.LoanItem
+﻿namespace Project___ConsoleApp__Library_Management_Application_.DTOs.LoanItem
 {
-    internal class LoanItemGetDTO
+    public class LoanItemGetDTO
     {
+        public int Id { get; set; }
+        public int LoanId { get; set; }
+        public int BookId { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

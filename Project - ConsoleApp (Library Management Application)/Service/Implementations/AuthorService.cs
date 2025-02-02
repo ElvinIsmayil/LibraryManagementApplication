@@ -7,11 +7,11 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
 {
     public class AuthorService : IAuthorService
     {
-        private readonly IAuthorRepository _repository;
+        private readonly IAuthorRepository _authorRepository;
 
         public AuthorService(IAuthorRepository repository)
         {
-            _repository = repository;
+            _authorRepository = repository;
         }
 
         public void Create(AuthorCreateDTO authorCreateDTO)
@@ -21,8 +21,8 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
             Author author = new Author();
             author.Name = authorCreateDTO.Name;
 
-            _repository.Add(author);
-            _repository.Commit();
+            _authorRepository.Add(author);
+            _authorRepository.Commit();
 
 
         }
@@ -30,16 +30,16 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         public void Delete(int? id)
         {
             if (id is null|| id<1) throw new ArgumentOutOfRangeException("Id is invalid");
-            var author = _repository.GetById((int)id);
+            var author = _authorRepository.GetById((int)id);
             if (author is null) throw new EntityNotFoundException("Author not found");
-            _repository.Remove(author);
-            _repository.Commit();
+            _authorRepository.Remove(author);
+            _authorRepository.Commit();
         }
 
         public List<AuthorGetDTO> GetAll()
         {
             List<AuthorGetDTO> mappedAuthors = new List<AuthorGetDTO>();
-            List<Author> authors = _repository.GetAll();
+            List<Author> authors = _authorRepository.GetAll();
             foreach (var author in authors)
             {
                 AuthorGetDTO authorGetDTO = new AuthorGetDTO();
@@ -54,7 +54,7 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         public AuthorGetDTO GetById(int? id)
         {
             if (id is null || id < 1) throw new ArgumentOutOfRangeException("Id is invalid");
-            var author = _repository.GetById((int)id);
+            var author = _authorRepository.GetById((int)id);
             if (author is null) throw new EntityNotFoundException("Author not found");
             AuthorGetDTO authorGetDTO = new AuthorGetDTO 
             { 
@@ -71,10 +71,10 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         public void Update(int? id, AuthorUpdateDTO authorUpdateDTO)
         {
             if (id is null || id < 1) throw new ArgumentOutOfRangeException("Id is invalid");
-            var author = _repository.GetById((int)id);
+            var author = _authorRepository.GetById((int)id);
             if (author is null) throw new EntityNotFoundException("Author not found");
             author.Name = authorUpdateDTO.Name;
-            _repository.Commit();
+            _authorRepository.Commit();
         }
 
        
