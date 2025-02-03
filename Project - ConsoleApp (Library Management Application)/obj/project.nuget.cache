@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qj4RIC/RrMw=",
+  "dgSpecHash": "6zRmCvtGP4E=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Elvinei\\Desktop\\C#\\Project - ConsoleApp (Library Management Application)\\Project - ConsoleApp (Library Management Application)\\Project - ConsoleApp (Library Management Application).csproj",
+  "projectFilePath": "C:\\Users\\Elvinei\\Desktop\\C#\\LibraryManagementApplication\\Project - ConsoleApp (Library Management Application)\\Project - ConsoleApp (Library Management Application).csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Elvinei\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Elvinei\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

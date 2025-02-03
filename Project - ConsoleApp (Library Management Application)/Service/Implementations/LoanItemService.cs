@@ -1,6 +1,4 @@
-﻿using Project___ConsoleApp__Library_Management_Application_.DTOs.Author;
-
-namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfaces
+﻿namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfaces
 {
     public class LoanItemService : ILoanItemService
     {

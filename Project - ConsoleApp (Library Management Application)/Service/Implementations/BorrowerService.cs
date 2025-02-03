@@ -1,4 +1,5 @@
 ﻿using Project___ConsoleApp__Library_Management_Application_.DTOs.Author;
+using Project___ConsoleApp__Library_Management_Application_.DTOs.Borrowers;
 
 namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfaces
 {

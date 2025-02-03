@@ -38,17 +38,45 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
 
         public List<AuthorGetDTO> GetAll()
         {
-            throw new NotImplementedException();
+            List<AuthorGetDTO> mappedAuthors = new List<AuthorGetDTO>();
+            List<Author> authors = _repository.GetAll();
+            foreach (var author in authors)
+            {
+                AuthorGetDTO authorGetDTO = new AuthorGetDTO();
+                authorGetDTO.Name = author.Name;
+                authorGetDTO.Id = author.Id;
+                mappedAuthors.Add(authorGetDTO);            
+            }
+
+            return mappedAuthors;
         }
 
-        public AuthorGetDTO GetById(int id)
+        public AuthorGetDTO GetById(int? id)
         {
-            throw new NotImplementedException();
+            if (id is null || id < 1) throw new ArgumentOutOfRangeException("Id is invalid");
+            var author = _repository.GetById((int)id);
+            if (author is null) throw new EntityNotFoundException("Author not found");
+            AuthorGetDTO authorGetDTO = new AuthorGetDTO 
+            { 
+                Name = author.Name,
+                Id = author.Id
+            };
+            return authorGetDTO;
+            
+
         }
 
-        public void Update(int id, AuthorUpdateDTO authorUpdateDTO)
+        
+
+        public void Update(int? id, AuthorUpdateDTO authorUpdateDTO)
         {
-            throw new NotImplementedException();
+            if (id is null || id < 1) throw new ArgumentOutOfRangeException("Id is invalid");
+            var author = _repository.GetById((int)id);
+            if (author is null) throw new EntityNotFoundException("Author not found");
+            author.Name = authorUpdateDTO.Name;
+            _repository.Commit();
         }
+
+       
     }
 }
