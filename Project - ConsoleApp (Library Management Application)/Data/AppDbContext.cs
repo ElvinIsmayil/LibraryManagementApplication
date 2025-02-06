@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Project___ConsoleApp__Library_Management_Application_.Entities;
+using System.Reflection;
 
 namespace Project___ConsoleApp__Library_Management_Application_.Data
 {
@@ -13,11 +14,15 @@ namespace Project___ConsoleApp__Library_Management_Application_.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=JUPITER02\\MAIN;Database=LibraryManagmentApplication;Trusted_Connection=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-CIU9UU4\\SQLEXPRESS;Database=LibraryManagmentApplication;Trusted_Connection=True;TrustServerCertificate=True");
             base.OnConfiguring(optionsBuilder);
         }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }

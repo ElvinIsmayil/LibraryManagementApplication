@@ -44,7 +44,7 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
                 loanGetDTO.BorrowerId = borrower.BorrowerId;
                 loanGetDTO.ReturnDate = borrower.ReturnDate;
                 loanGetDTO.MustReturnDate= borrower.MustReturnDate;
-                loanGetDTO.Borrower = borrower.Borrower;
+                
 
                 mappedLoans.Add(loanGetDTO);
             }
@@ -62,7 +62,7 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
                 MustReturnDate = loan.MustReturnDate,
                 ReturnDate = loan.ReturnDate,
                 LoanDate = loan.LoanDate,
-                Borrower = loan.Borrower,
+                
                 BorrowerId = loan.BorrowerId
             };
             return loanGetDTO;

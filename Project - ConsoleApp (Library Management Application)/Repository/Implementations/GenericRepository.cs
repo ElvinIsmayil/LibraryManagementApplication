@@ -1,5 +1,7 @@
-﻿using Project___ConsoleApp__Library_Management_Application_.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Project___ConsoleApp__Library_Management_Application_.Data;
 using Project___ConsoleApp__Library_Management_Application_.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static Project___ConsoleApp__Library_Management_Application_.Repository.Interfaces.IGenericRepository;
 
 namespace Project___ConsoleApp__Library_Management_Application_.Repository.Implementations
@@ -21,7 +23,19 @@ namespace Project___ConsoleApp__Library_Management_Application_.Repository.Imple
 
 
         public List<T> GetAll()
-        => _appDbContext.Set<T>().ToList();
+        {
+            var query = _appDbContext.Set<T>(); 
+            
+
+            return query.ToList();
+                
+                
+        }
+        public IQueryable<T> GetAllAsQuery()
+        {
+            return _appDbContext.Set<T>().AsQueryable();
+        }
+
 
         public T GetById(int id)
         => _appDbContext.Set<T>().FirstOrDefault(x => x.Id == id);

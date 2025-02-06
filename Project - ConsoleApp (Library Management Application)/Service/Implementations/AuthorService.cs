@@ -1,4 +1,5 @@
-﻿using Project___ConsoleApp__Library_Management_Application_.DTOs.Author;
+﻿using Microsoft.EntityFrameworkCore;
+using Project___ConsoleApp__Library_Management_Application_.DTOs.Author;
 using Project___ConsoleApp__Library_Management_Application_.Entities;
 using Project___ConsoleApp__Library_Management_Application_.Exceptions;
 using Project___ConsoleApp__Library_Management_Application_.Repository.Interfaces;
@@ -39,14 +40,31 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         public List<AuthorGetDTO> GetAll()
         {
             List<AuthorGetDTO> mappedAuthors = new List<AuthorGetDTO>();
-            List<Author> authors = _authorRepository.GetAll();
+            
+            List<Author> authors = _authorRepository.GetAllAsQuery().Include(x=> x.Books).ToList();
+            
             foreach (var author in authors)
             {
                 AuthorGetDTO authorGetDTO = new AuthorGetDTO();
+                
                 authorGetDTO.Name = author.Name;
                 authorGetDTO.Id = author.Id;
+                List<BookGetAuthorDTO> bookGetDtos = new List<BookGetAuthorDTO>();
+                foreach (var book in author.Books)
+                {
+                    BookGetAuthorDTO BookGetAuthorDTO = new BookGetAuthorDTO();
+                    BookGetAuthorDTO.Id = book.Id;
+                    BookGetAuthorDTO.Title = book.Title;
+                    BookGetAuthorDTO.Description = book.Description;
+                    BookGetAuthorDTO.PublishedYear = book.PublishedYear;
+                    bookGetDtos.Add(BookGetAuthorDTO);
+                }
+                authorGetDTO.BookGetAuthorDTO = bookGetDtos;
                 mappedAuthors.Add(authorGetDTO);            
+                
             }
+
+            
 
             return mappedAuthors;
         }

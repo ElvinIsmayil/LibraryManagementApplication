@@ -1,4 +1,5 @@
-﻿using Project___ConsoleApp__Library_Management_Application_.Entities;
+﻿using Project___ConsoleApp__Library_Management_Application_.Data;
+using Project___ConsoleApp__Library_Management_Application_.Entities;
 
 namespace Project___ConsoleApp__Library_Management_Application_.Repository.Interfaces
 {
@@ -10,6 +11,8 @@ namespace Project___ConsoleApp__Library_Management_Application_.Repository.Inter
             void Remove(T entity);
             T GetById(int id);
             List<T> GetAll();
+            IQueryable<T> GetAllAsQuery();
+           
             int Commit();
 
         }

@@ -4,6 +4,7 @@
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        List<int> LoanIds { get; set; }
 
     }
 }

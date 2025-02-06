@@ -6,5 +6,8 @@
         public string Description { get; set; }
         public int PublishedYear { get; set; }
 
+        public List<int> AuthorIds { get; set; }
+
+
     }
 }

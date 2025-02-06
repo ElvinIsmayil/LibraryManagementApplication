@@ -3,7 +3,7 @@
     public class LoanItemUpdateDTO
     {
         public int Id { get; set; }
-        public int LoanId { get; set; }
-        public int BookId { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
 }

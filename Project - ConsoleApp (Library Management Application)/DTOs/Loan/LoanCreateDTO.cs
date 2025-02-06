@@ -2,7 +2,9 @@
 {
     public class LoanCreateDTO
     {
+
         public int BorrowerId { get; set; }
+        public DateTime LoanDate { get; set; }
         public DateTime MustReturnDate { get; set; }
         public DateTime? ReturnDate { get; set; }
 
