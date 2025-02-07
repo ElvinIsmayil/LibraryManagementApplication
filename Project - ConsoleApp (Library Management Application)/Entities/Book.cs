@@ -6,5 +6,14 @@
         public string Description { get; set; }
         public int PublishedYear { get; set; }
         public List<Author> Authors { get; set; }
+
+        public override string ToString()
+        {
+            return $"Book Title: {Title} , Description: {Description} , PublishedYear: {PublishedYear}";
+        }
+
+
     }
+
+ 
 }

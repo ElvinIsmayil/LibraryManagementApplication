@@ -62,5 +62,15 @@
                            "4 - Delete Borrower\n" +
                            "Escape - Return to Main Menu\n");
         }
+
+        public static void FilterMenu()
+        {
+            Helper.ChangeTextColor(ConsoleColor.Green,
+                "-----------Filter Menu-----------\n" +
+                           "\nChoose Operation:\n" +
+                           "1 - Filter Books By Title\n" +
+                           "2 - Filter Books By Author Name\n" +
+                           "Escape - Return to Main Menu\n");
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Project___ConsoleApp__Library_Management_Application_.DTOs.Book;
+﻿using Microsoft.EntityFrameworkCore;
+using Project___ConsoleApp__Library_Management_Application_.DTOs.Book;
 using Project___ConsoleApp__Library_Management_Application_.Entities;
 using Project___ConsoleApp__Library_Management_Application_.Exceptions;
 using Project___ConsoleApp__Library_Management_Application_.Repository.Interfaces;
@@ -18,11 +19,14 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         {
             if (bookCreateDTO is null) throw new EntityNotFoundException($"Book not found");
             if (string.IsNullOrWhiteSpace(bookCreateDTO.Title)) throw new ArgumentNullException("Book title is null or empty");
-            Book book = new Book();
-            book.Title = bookCreateDTO.Title;   
-            book.Description = bookCreateDTO.Description;
-            book.PublishedYear = bookCreateDTO.PublishedYear;
-
+            Book book = new Book()
+            {
+                Title = bookCreateDTO.Title,
+                Description = bookCreateDTO.Description,
+                PublishedYear = bookCreateDTO.PublishedYear
+               
+            };
+           
             _bookRepository.Add(book);
             _bookRepository.Commit();
 
@@ -39,18 +43,21 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
 
         public List<BookGetDTO> GetAll()
         {
-            List<BookGetDTO> mappedBooks = new List<BookGetDTO>();
-            List<Book> books = _bookRepository.GetAll();
-            foreach (var book in books)
-            {
-                BookGetDTO bookGetDTO = new BookGetDTO();
-                bookGetDTO.Title = book.Title;
-                bookGetDTO.Id = book.Id;
-                bookGetDTO.PublishedYear = book.PublishedYear;
-                mappedBooks.Add(bookGetDTO);
-            }
-
-            return mappedBooks;
+            return _bookRepository.GetAllAsQuery()
+                .Include(x => x.Authors) 
+                .Select(book => new BookGetDTO
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    Description = book.Description,
+                    PublishedYear = book.PublishedYear,
+                    Authors = book.Authors.Select(author => new AuthorGetBookDTO
+                    {
+                        Id = author.Id,
+                        Name = author.Name
+                    }).ToList()
+                })
+                .ToList();
         }
 
         public BookGetDTO GetById(int? id)

@@ -1,4 +1,5 @@
-﻿using Project___ConsoleApp__Library_Management_Application_.DTOs.Borrowers;
+﻿using Microsoft.EntityFrameworkCore;
+using Project___ConsoleApp__Library_Management_Application_.DTOs.Borrowers;
 using Project___ConsoleApp__Library_Management_Application_.Entities;
 using Project___ConsoleApp__Library_Management_Application_.Exceptions;
 using Project___ConsoleApp__Library_Management_Application_.Repository.Interfaces;
@@ -39,19 +40,24 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
 
         public List<BorrowerGetDTO> GetAll()
         {
-            List<BorrowerGetDTO> mappedBorrowers = new List<BorrowerGetDTO>();
-            List<Borrower> borrowers = _borrowerRepository.GetAll();
-            foreach (var borrower in borrowers)
-            {
-                BorrowerGetDTO borrowerGetDTO = new BorrowerGetDTO();
-                borrowerGetDTO.Id = borrower.Id;
-                borrowerGetDTO.Name = borrower.Name;
-                borrowerGetDTO.Email = borrower.Email;
+            return _borrowerRepository.GetAllAsQuery()
+                 .Include(x => x.Loans)
+                 .Select(borrower => new BorrowerGetDTO
+                 {
+                     Id = borrower.Id,
+                     Name = borrower.Name,
+                     Email = borrower.Email,
+                     Loans = borrower.Loans.Select(loan => new LoanBorrowerGetDTO
+                     {
+                        BorrowerId = loan.Id,
+                        LoanDate = loan.LoanDate,
+                        ReturnDate = loan.ReturnDate,
+                        MustReturnDate = loan.MustReturnDate
 
-                mappedBorrowers.Add(borrowerGetDTO);
-            }
 
-            return mappedBorrowers;
+                     }).ToList()
+                 })
+                 .ToList();
         }
 
         public BorrowerGetDTO GetById(int? id)

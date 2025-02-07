@@ -5,5 +5,6 @@ namespace Project___ConsoleApp__Library_Management_Application_.Repository.Imple
 {
     public class AuthorRepository : GenericRepository<Author>, IAuthorRepository
     {
+
     }
 }
