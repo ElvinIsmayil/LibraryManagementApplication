@@ -22,7 +22,19 @@ namespace Project___ConsoleApp__Library_Management_Application_.Data
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+
+
+
+            modelBuilder.Entity<Book>()
+             .HasMany(b => b.Authors)
+             .WithMany(a => a.Books)
+             .UsingEntity<Dictionary<string, object>>(
+                 "BookAuthors",
+                 j => j.HasOne<Author>().WithMany().HasForeignKey("AuthorId").OnDelete(DeleteBehavior.Cascade),
+                 j => j.HasOne<Book>().WithMany().HasForeignKey("BookId").OnDelete(DeleteBehavior.Cascade)
+             );
         }
+    }
 
     }
-}
+

@@ -10,5 +10,13 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         AuthorGetDTO GetById(int? id);
         List<AuthorGetDTO> GetAll();
 
+
+        void AssignBooksToAuthor(int authorId, List<int> bookIds);
+
+
+        List<AuthorGetDTO> FilterAuthorsByName(string name);
     }
 }
+
+
+

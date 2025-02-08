@@ -9,6 +9,9 @@ namespace Project___ConsoleApp__Library_Management_Application_.Service.Interfac
         void Update(int? id, BookUpdateDTO bookUpdateDTO);
         BookGetDTO GetById(int? id);
         List<BookGetDTO> GetAll();
+        List<BookGetDTO> FilterBooksByAuthor(string authorName);
+        List<BookGetDTO> FilterBooksByTitle(string title);
+
 
     }
 }

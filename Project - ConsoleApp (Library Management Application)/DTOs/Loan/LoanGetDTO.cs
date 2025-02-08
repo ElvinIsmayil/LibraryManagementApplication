@@ -5,6 +5,7 @@ namespace Project___ConsoleApp__Library_Management_Application_.DTOs.Loan
 {
     public class LoanGetDTO
     {
+        public int Id { get; set; }
         public int BorrowerId { get; set; }
         public BorrowerGetDTO Borrower { get; set; }
         public DateTime LoanDate { get; set; }

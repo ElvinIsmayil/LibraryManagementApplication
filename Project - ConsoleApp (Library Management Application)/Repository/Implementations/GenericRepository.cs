@@ -1,6 +1,5 @@
 ﻿using Project___ConsoleApp__Library_Management_Application_.Data;
 using Project___ConsoleApp__Library_Management_Application_.Entities;
-using Project___ConsoleApp__Library_Management_Application_.Exceptions;
 using static Project___ConsoleApp__Library_Management_Application_.Repository.Interfaces.IGenericRepository;
 
 namespace Project___ConsoleApp__Library_Management_Application_.Repository.Implementations
@@ -14,26 +13,8 @@ namespace Project___ConsoleApp__Library_Management_Application_.Repository.Imple
 
 
         public void Add(T entity)
-        {
-            try
-            {
+            => _appDbContext.Set<T>().Add(entity);
 
-                _appDbContext.Set<T>().Add(entity);
-            }
-            catch (EntityNotFoundException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine(ex.Message);
-            }
-        }
 
 
 

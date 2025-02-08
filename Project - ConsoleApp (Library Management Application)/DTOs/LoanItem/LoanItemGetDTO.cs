@@ -7,6 +7,7 @@ namespace Project___ConsoleApp__Library_Management_Application_.DTOs.LoanItem
         public int Id { get; set; }
         public int LoanId { get; set; }
         public BookGetDTO Book { get; set; } 
+        public int BookId { get; set; }
 
         public bool IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; }
