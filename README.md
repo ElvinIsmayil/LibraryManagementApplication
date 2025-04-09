@@ -1,150 +1,120 @@
-```markdown
+
 # 📚 Library Management Application
 
-## 📋 Overview
-The **Library Management Application** is a console-based application designed to help manage library resources efficiently. This application allows users to perform various operations such as adding, removing, and searching for books, as well as managing library members. The goal of this project is to provide an intuitive interface for library management tasks, making it easier for librarians and staff to handle daily operations.
+## 🌟 Overview
+The **Library Management Application** is a powerful console-based system built with C# and Entity Framework Core. It's designed to help libraries efficiently manage their books, authors, borrowers, and loans through an intuitive interface.
 
-## ✨ Features
-- 📖 **Book Management**: Add, remove, and search for books in the library.
-- 👤 **Member Management**: Register new members and manage existing member details.
-- 🔍 **Search Functionality**: Quickly find books or members using search filters.
-- 📅 **Loan Management**: Track book loans and returns.
-- 🔒 **User Authentication**: Secure access for library staff with login functionality.
+## ✨ Key Features
+- 📖 **Book Management**: Create, update, delete and filter books
+- ✍️ **Author Management**: Manage author information and book relationships
+- 👥 **Borrower System**: Register and track library members
+- 🔄 **Loan Processing**: Handle book borrowing and returns
+- ⏰ **Overdue Tracking**: Monitor late returns
+- 📊 **Statistics**: View most borrowed books and borrower activity
 
-## 🚀 Installation
-To set up the Library Management Application on your local machine, follow these steps:
+## 🔧 Tech Stack
+- 🖥️ **.NET 8.0** Framework
+- 🗃️ **Entity Framework Core 8.0** ORM
+- 🛢️ **SQL Server** Database
+- 🧩 **Repository Pattern** Architecture
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/ElvinIsmayil/LibraryManagementApplication.git
-   ```
+## 📋 Data Model
+```
+📦 BaseEntity
+ ┣ 🔑 Id
+ ┣ 🗑️ IsDeleted
+ ┣ 📅 CreatedAt
+ ┗ 🔄 UpdatedAt
 
-2. **Navigate to the Project Directory**
-   ```bash
-   cd LibraryManagementApplication
-   ```
+📕 Book ← BaseEntity
+ ┣ 📝 Title
+ ┣ 📄 Description
+ ┣ 📆 PublishedYear
+ ┗ 👤 Authors (M:M)
 
-3. **Open the Solution File**
-   - Open the solution file `Project - ConsoleApp (Library Management Application).sln` in your preferred IDE (e.g., Visual Studio).
+👤 Author ← BaseEntity
+ ┣ 📝 Name
+ ┗ 📚 Books (M:M)
 
-4. **Restore NuGet Packages**
-   - In Visual Studio, right-click on the solution in Solution Explorer and select **Restore NuGet Packages**.
+👥 Borrower ← BaseEntity
+ ┗ 📝 Personal information
 
-5. **Build the Project**
-   ```bash
-   dotnet build
-   ```
+📝 Loan ← BaseEntity
+ ┗ 📚 Loan details
 
-6. **Run the Application**
-   ```bash
-   dotnet run --project "Project - ConsoleApp (Library Management Application)"
-   ```
-
-## 🔧 Configuration
-The application can be configured using the `appsettings.json` file located in the project directory. Below is an example configuration:
-
-```json
-{
-  "LibrarySettings": {
-    "MaxBooksPerMember": 5,
-    "LoanDurationDays": 14
-  }
-}
+📑 LoanItem ← BaseEntity
+ ┗ 📕 Individual book loan record
 ```
 
-**Configuration Options:**
-| Option                   | Description                              |
-|--------------------------|------------------------------------------|
-| `MaxBooksPerMember`      | Maximum number of books a member can borrow. |
-| `LoanDurationDays`       | Duration in days for which a book can be loaned. |
+## 🚀 Getting Started
 
-## 📊 Usage Examples
-Here are a few examples of how to interact with the Library Management Application:
+### 📋 Prerequisites
+- ✅ .NET 8.0 SDK or newer
+- ✅ SQL Server (LocalDB or full instance)
+- ✅ IDE (Visual Studio 2022 recommended)
 
-### 1. Adding a New Book
-```csharp
-library.AddBook(new Book { Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", ISBN = "9780743273565" });
-```
-*This code snippet adds a new book to the library's collection.*
+### ⚙️ Installation
+```bash
+# Clone this repository
+git clone https://github.com/YourUsername/LibraryManagementApplication.git
 
-### 2. Searching for a Member
-```csharp
-var member = library.SearchMember("John Doe");
-```
-*This searches for a member named "John Doe" in the library database.*
+# Navigate into the project directory
+cd LibraryManagementApplication
 
-### 3. Loaning a Book
-```csharp
-library.LoanBook("9780743273565", "John Doe");
-```
-*This loans the book with the specified ISBN to the member named "John Doe".*
+# Build the project
+dotnet build
 
-## 📘 API Reference
-### `Library`
-- **Methods**:
-    - `AddBook(Book book)`
-        - **Parameters**: `book` - The book to be added.
-        - **Returns**: `void`
-    - `SearchMember(string name)`
-        - **Parameters**: `name` - The name of the member to search for.
-        - **Returns**: `Member` - The found member object.
-    - `LoanBook(string isbn, string memberName)`
-        - **Parameters**: 
-            - `isbn` - The ISBN of the book to loan.
-            - `memberName` - The name of the member borrowing the book.
-        - **Returns**: `void`
-
-## 🧩 Architecture
-The Library Management Application follows a simple architecture pattern:
-
-```
-+-------------------+
-|   User Interface   |
-+-------------------+
-          |
-          v
-+-------------------+
-|     Controller     |
-+-------------------+
-          |
-          v
-+-------------------+
-|      Services      |
-+-------------------+
-          |
-          v
-+-------------------+
-|     Repository     |
-+-------------------+
+# Run the application
+dotnet run --project "Project - ConsoleApp (Library Management Application)"
 ```
 
-## 🔒 Security Considerations
-- Ensure that sensitive data, such as user credentials, are stored securely.
-- Implement proper input validation to prevent SQL injection attacks.
-- Use secure password hashing mechanisms for user authentication.
+## 📱 Usage Guide
 
-## 🧪 Testing
-To run the tests for the Library Management Application, follow these steps:
+### 🧭 Main Menu
+The application presents an easy-to-navigate menu:
+1. 👤 Manage Authors
+2. 📚 Manage Books
+3. 👥 Manage Borrowers
+4. 📤 Borrow Book
+5. 📥 Return Book
+6. 📊 Show Most Borrowed Books
+7. ⏰ Show Late Borrowers
+8. 👥 Show All Borrowers
+9. 🔍 Apply Filters for Books
+Esc. 🚪 Exit Application
 
-1. **Navigate to the Test Project Directory**
-   ```bash
-   cd LibraryManagementApplication.Tests
-   ```
-
-2. **Run the Tests**
-   ```bash
-   dotnet test
-   ```
-
-## 🤝 Contributing
-Contributions are welcome! To contribute to the Library Management Application:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/YourFeature`).
-3. Make your changes and commit them (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/YourFeature`).
-5. Open a pull request.
-
-## 📝 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🏗️ Architecture
 ```
+🎮 UI Layer (Console)
+   ↓
+💼 Service Layer (Business Logic)
+   ↓
+🗄️ Repository Layer (Data Access)
+   ↓
+🛢️ Database (SQL Server)
+```
+
+## 🛠️ Future Enhancements
+- 🔐 User authentication system
+- 📊 Enhanced reporting capabilities
+- 💰 Fine calculation for late returns
+- 🖥️ GUI interface
+- 🔖 Book reservation system
+
+## 👨‍💻 Contribution Guidelines
+Contributions are welcome! To contribute:
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+## 📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📞 Contact
+If you have any questions or suggestions, please feel free to reach out!
+
+---
+
+⭐ Don't forget to star this repo if you find it useful! ⭐
